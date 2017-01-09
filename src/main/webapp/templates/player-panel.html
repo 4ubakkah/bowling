@@ -1,0 +1,104 @@
+<div class="container">
+
+    <div class="row" ng-if="errorMessage != null">
+        <div class="alert alert-success">{{successMessage}}</div>
+    </div>
+
+    <div class="col-md-12" ng-controller="newGameController">
+    <h2 class="lead text-center">New game</h2>
+
+        <form name="createNewBoard" class="form-horizontal" novalidate ng-submit="createNewGame()">
+            <div class="form-group">
+                <label for="gameType" class="col-md-5 control-label">Game type:</label>
+                <div class="col-md-2">
+                    <select required class="form-control" name="gameType" id="gameType"
+                            ng-model="newGameData.gameType" disabled="true"/>
+                    <label class="alert-warning">*Not implemented yet.</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-5 control-label">Players count:</label>
+                <div class="col-md-2">
+                    <select required class="form-control" name="playersCount" id="playersCount"
+                            ng-model="newGameData.playersCount" disabled="true"/>
+                    <label class="alert-warning">*Not implemented yet.</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-5 col-sm-6" >
+                    <button type="submit" class="btn btn-md btn-primary col-sm-3" ng-disabled="createNewGame.$invalid">
+                        <span class="glyphicon glyphicon-plus"></span> New Game </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <!-- JOIN EXISITNG GAME -->
+        <div class="col-md-6" ng-controller="gamesToJoinController">
+
+                <table class="table table-hover table-striped table-condensed" ng-show="gamesToJoin.length">
+                    <h2 class="lead, text-center">Join non-finished game</h2>
+                    <thead>
+                        <td>Game status</td>
+                        <td>Created</td>
+                        <td></td>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="game in gamesToJoin">
+                        <td>{{game.gameStatus}}</td>
+                        <td>{{game.created | date:'MM-dd-yyyy HH:mm:ss'}}</td>
+                        <td>
+                            <button type="submit" class="btn btn-success" ng-click="joinGame(game.id)">
+                            <span class="glyphicon glyphicon-plus"></span> Join </button>
+                            <button class="btn btn-danger" ng-click="deleteGame(game.id)">
+                                <span class="glyphicon glyphicon-minus"></span> Delete game </button>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            <div ng-show="!gamesToJoin.length">
+                No games to join.
+            </div>
+
+        </div>
+
+        <!-- PLAYER GAMES -->
+        <div class="col-md-6" ng-controller="playerGamesController">
+
+            <table class="table table-hover table-striped table-condensed" ng-show="playerGames.length">
+                <h2 class="lead, text-center">Finished games retrospective</h2>
+                <thead>
+                <td>Game status</td>
+                <td>Created</td>
+                <td></td>
+                </thead>
+                <tbody>
+                <tr ng-repeat="game in playerGames">
+                    <td>{{game.gameStatus}}</td>
+                    <td>{{game.created | date:'MM-dd-yyyy HH:mm:ss'}}</td>
+                    <td>
+                        <button class="btn btn-success" ng-click="loadGame(game.id)">
+                            <span class="glyphicon glyphicon-plus"></span> Load game </button>
+                        </button>
+                        <button class="btn btn-danger" ng-click="deleteGame(game.id)">
+                            <span class="glyphicon glyphicon-minus"></span> Delete game </button>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div ng-show="!playerGames.length">
+                No games.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
