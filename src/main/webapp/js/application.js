@@ -2,6 +2,7 @@ var bowling = angular.module('bowling', ['ngRoute','gameModule']);
 
 bowling.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
+
         when('/player/create', {
             templateUrl: 'templates/create.html',
             controller: 'PlayerCreateController'
@@ -16,9 +17,6 @@ bowling.config(['$routeProvider', function($routeProvider) {
         }).
         when('/about', {
             templateUrl: 'templates/about.html'
-        }).
-        when('/login', {
-            templateUrl: 'templates/login2.html'
         }).
         otherwise({
             redirectTo: '/player/panel'
