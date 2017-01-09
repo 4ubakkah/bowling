@@ -28,7 +28,6 @@ public class GameController {
 
     Logger logger = LoggerFactory.getLogger(GameController.class);
 
-
     @RequestMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public Game createNewGame() {
 

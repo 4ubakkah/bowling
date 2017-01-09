@@ -58,7 +58,4 @@ public class RollController {
 
         return moveService.getMovesInGame(gameService.getGame(gameId));
     }
-
-
-
 }

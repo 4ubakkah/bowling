@@ -3,6 +3,7 @@ package org.nb.bowling.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 public class Frame implements Comparable<Frame> {
@@ -19,10 +20,11 @@ public class Frame implements Comparable<Frame> {
     @JsonBackReference
     private Game game;
 
-    @Column(name = "pins_hit_count_first_take", nullable = false)
+    @Column(name = "pins_hit_count_first_take")
+
     private Integer pinsHitCountFirstTake;
 
-    @Column(name = "pins_hit_count_second_take", nullable = false)
+    @Column(name = "pins_hit_count_second_take")
     private Integer pinsHitCountSecondTake;
 
     public Long getId() {
@@ -46,7 +48,7 @@ public class Frame implements Comparable<Frame> {
     }
 
     public void setPinsHitCountFirstTake(Integer pinsHitCountFirstTake) {
-        this.pinsHitCountFirstTake = pinsHitCountFirstTake;
+        this.pinsHitCountFirstTake =  pinsHitCountFirstTake;
     }
 
     public Integer getPinsHitCountSecondTake() {
@@ -54,7 +56,7 @@ public class Frame implements Comparable<Frame> {
     }
 
     public void setPinsHitCountSecondTake(Integer pinsHitCountSecondTake) {
-        this.pinsHitCountSecondTake = pinsHitCountSecondTake;
+        this.pinsHitCountSecondTake =  pinsHitCountSecondTake;
     }
 
     public boolean isFrameComplete() {
@@ -68,7 +70,9 @@ public class Frame implements Comparable<Frame> {
     }
 
     public Integer getScore() {
-        return Integer.sum(pinsHitCountFirstTake, pinsHitCountSecondTake);
+        Integer totalScore = pinsHitCountFirstTake != null ? pinsHitCountFirstTake : 0;
+        totalScore += pinsHitCountSecondTake != null ? pinsHitCountSecondTake : 0;
+        return totalScore;
     }
 
     public boolean isStrike() {

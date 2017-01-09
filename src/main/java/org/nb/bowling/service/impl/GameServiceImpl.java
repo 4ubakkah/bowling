@@ -19,13 +19,13 @@ import java.util.stream.Collectors;
 @Transactional
 public class GameServiceImpl implements GameService {
 
-    private final GameDAO gameDao;
-
-
+    @Autowired
+    private GameDAO gameDao;
+/*
     @Autowired
     public GameServiceImpl(GameDAO gameDao) {
         this.gameDao = gameDao;
-    }
+    }*/
 
     @Override
     public Game createNewGame(Player player) {
