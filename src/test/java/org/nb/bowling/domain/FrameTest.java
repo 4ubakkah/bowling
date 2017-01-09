@@ -15,9 +15,41 @@ public class FrameTest {
     @Test
     public void isFrameComplete() throws Exception {
         Frame frame = new Frame();
-        frame.setPinsHitCountFirstTake(1L);
-        frame.setPinsHitCountSecondTake(1L);
+        frame.setPinsHitCountFirstTake(1);
+        frame.setPinsHitCountSecondTake(1);
         assertThat(frame.isFrameComplete()).isTrue();
+    }
+
+    @Test
+    public void isMiss_returnsTrue_whenNotBothTakesDidntHitAnyPin() throws Exception {
+        Frame frame = new Frame();
+        assertThat(frame.isMiss()).isTrue();
+    }
+
+    @Test
+    public void isMiss_returnsFalse_whenEitherOneTakeDidHitPin() throws Exception {
+        Frame frame = new Frame();
+        frame.setPinsHitCountFirstTake(1);
+        assertThat(frame.isMiss()).isFalse();
+    }
+
+    @Test
+    public void isStrike_returnsTrue_whenEitherOneTakeDidHitAllPins() throws Exception {
+        Frame frame = new Frame();
+        frame.setPinsHitCountFirstTake(Frame.PINS_COUNT);
+        assertThat(frame.isStrike()).isTrue();
+    }
+
+    @Test
+    public void isStrike_returnsFalse_whenNoneTakeDidntHitAllPins() throws Exception {
+        Frame frame = new Frame();
+        assertThat(frame.isStrike()).isFalse();
+    }
+
+    @Test
+    public void isSpare_returnsTrue() {
+        Frame frame = new Frame();
+        assertThat(frame.isSpare()).isTrue();
     }
 
 }

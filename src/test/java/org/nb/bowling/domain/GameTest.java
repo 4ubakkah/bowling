@@ -13,8 +13,8 @@ public class GameTest {
         for (int i = 1; i <= Game.FRAMES_COUNT_IN_ONE_GAME; i++) {
             Frame frame = new Frame();
             frame.setId(new Long(i));
-            frame.setPinsHitCountFirstTake(1L);
-            frame.setPinsHitCountSecondTake(1L);
+            frame.setPinsHitCountFirstTake(1);
+            frame.setPinsHitCountSecondTake(1);
             game.getFrames().add(frame);
         }
 
@@ -41,8 +41,8 @@ public class GameTest {
         for (int i = 1; i <= Game.FRAMES_COUNT_IN_ONE_GAME - 1; i++) {
             Frame frame = new Frame();
             frame.setId(new Long(i));
-            frame.setPinsHitCountFirstTake(1L);
-            frame.setPinsHitCountSecondTake(1L);
+            frame.setPinsHitCountFirstTake(1);
+            frame.setPinsHitCountSecondTake(1);
             game.getFrames().add(frame);
         }
 
@@ -56,12 +56,25 @@ public class GameTest {
         for (int i = 1; i <= Game.FRAMES_COUNT_IN_ONE_GAME; i++) {
             Frame frame = new Frame();
             frame.setId(new Long(i));
-            frame.setPinsHitCountFirstTake(1L);
-            frame.setPinsHitCountSecondTake(1L);
+            frame.setPinsHitCountFirstTake(1);
+            frame.setPinsHitCountSecondTake(1);
             game.getFrames().add(frame);
         }
 
         assertThat(game.isGameComplete()).isTrue();
+    }
+
+    @Test
+    public void getGameScore_returnsTotalScore() {
+        Game game = new Game();
+
+        Frame frame1 = new Frame();
+        frame1.setPinsHitCountSecondTake(9);
+
+        Frame frame2 = new Frame();
+        frame2.setPinsHitCountSecondTake(2);
+
+        assertThat(game.getGameScore()).isEqualTo(frame1.getScore() + frame2.getScore());
     }
 
 }

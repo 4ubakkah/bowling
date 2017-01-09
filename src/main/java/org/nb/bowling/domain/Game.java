@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.nb.bowling.domain.enums.Status;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Entity
 @Table(name = "Game")
@@ -86,5 +83,10 @@ public class Game {
 
     public boolean isGameInProgress() {
         return !isGameComplete() && !frames.isEmpty();
+    }
+
+    public int getGameScore() {
+        Optional<Integer> totalScore = frames.stream().map(Frame::getScore).reduce((a, b) -> a + b);
+        return totalScore.orElse(0);
     }
 }

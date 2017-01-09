@@ -57,9 +57,9 @@ public class RollServiceImpl implements RollService {
         return newFrame;
     }
 
-    private Long randomizeRoll(Frame frame) {
-        Long hitPinsCount = frame.getPinsHitCountFirstTake() != null ? frame.getPinsHitCountFirstTake() : 0;
-        return new Random().longs(0, Frame.PINS_COUNT + 1 - hitPinsCount).findFirst().getAsLong();
+    private Integer randomizeRoll(Frame frame) {
+        Integer hitPinsCount = frame.getPinsHitCountFirstTake() != null ? frame.getPinsHitCountFirstTake() : 0;
+        return new Random().ints(0, Frame.PINS_COUNT + 1 - hitPinsCount).findFirst().getAsInt();
     }
 
     @Override

@@ -20,10 +20,10 @@ public class Frame implements Comparable<Frame> {
     private Game game;
 
     @Column(name = "pins_hit_count_first_take", nullable = false)
-    private Long pinsHitCountFirstTake;
+    private Integer pinsHitCountFirstTake;
 
     @Column(name = "pins_hit_count_second_take", nullable = false)
-    private Long pinsHitCountSecondTake;
+    private Integer pinsHitCountSecondTake;
 
     public Long getId() {
         return id;
@@ -41,19 +41,19 @@ public class Frame implements Comparable<Frame> {
         this.game = game;
     }
 
-    public Long getPinsHitCountFirstTake() {
+    public Integer getPinsHitCountFirstTake() {
         return pinsHitCountFirstTake;
     }
 
-    public void setPinsHitCountFirstTake(Long pinsHitCountFirstTake) {
+    public void setPinsHitCountFirstTake(Integer pinsHitCountFirstTake) {
         this.pinsHitCountFirstTake = pinsHitCountFirstTake;
     }
 
-    public Long getPinsHitCountSecondTake() {
+    public Integer getPinsHitCountSecondTake() {
         return pinsHitCountSecondTake;
     }
 
-    public void setPinsHitCountSecondTake(Long pinsHitCountSecondTake) {
+    public void setPinsHitCountSecondTake(Integer pinsHitCountSecondTake) {
         this.pinsHitCountSecondTake = pinsHitCountSecondTake;
     }
 
@@ -64,7 +64,23 @@ public class Frame implements Comparable<Frame> {
     //TODO avoid sorting by technical id
     @Override
     public int compareTo(Frame o) {
-
         return Long.compare(this.getId(), o.getId());
     }
+
+    public Integer getScore() {
+        return Integer.sum(pinsHitCountFirstTake, pinsHitCountSecondTake);
+    }
+
+    public boolean isStrike() {
+        return (pinsHitCountFirstTake != null && pinsHitCountFirstTake.intValue() == PINS_COUNT)
+                || (pinsHitCountSecondTake != null && pinsHitCountSecondTake.intValue() == PINS_COUNT);
+    }
+
+    public boolean isSpare() {
+        return false;
+    }
+    public boolean isMiss() {
+        return pinsHitCountFirstTake == null && pinsHitCountSecondTake == null;
+    }
+
 }
